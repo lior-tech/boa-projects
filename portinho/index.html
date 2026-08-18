@@ -63,7 +63,7 @@ async function tryPass(pass,silent){
   try{
     const html=await unlock(pass);
     sessionStorage.setItem("boa_code",pass);
-    document.open(); document.write(html); document.close();
+    document.open(); document.write("<!doctype html>"+html); document.close();
   }catch(x){
     b.textContent="";
     if(!silent){e.textContent="That code is not correct.";}
@@ -75,5 +75,7 @@ document.getElementById("f").addEventListener("submit",ev=>{ev.preventDefault();
 (function(){var ft=document.querySelector(".ft");
 if(ft)ft.textContent="\u00a9 2026 BOA HOTELS \u00b7 ALL RIGHTS RESERVED \u00b7 "+(hasWC?"S":"F");})();
 const saved=sessionStorage.getItem("boa_code");
-if(saved){tryPass(saved,true);}
+function autoTry(){if(saved){tryPass(saved,true);}}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){setTimeout(autoTry,30);});}
+else{setTimeout(autoTry,30);}
 </script></body></html>
